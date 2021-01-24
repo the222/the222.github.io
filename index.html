@@ -38,7 +38,7 @@
 						</div>
 						<nav>
 							<ul>
-								<li><a href="#intro">book</a></li>
+								<li><a href="#intro">reserve</a></li>
 								<li>
 								<a class="typeform-share" href="https://form.typeform.com/to/qMXP0WGr?typeform-medium=embed-snippet" data-mode="popup" data-size="100" target="_blank">apply</a>
 								<script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm_share", b="https://embed.typeform.com/"; if(!gi.call(d,id)){ js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
@@ -58,6 +58,42 @@
 								<h2 class="major">book a reservation</h2>
 								<!--<span class="image main"><img src="images/pic01.jpg" alt="" /></span>-->
 								<p>sorry, we are currently booked for the next 6 months. </br> check back later </p>
+								<div class="col form-group">
+								  <h5 class="h5 pt-1" id="current_text" >You are currently in spot</h5>
+								  <h5 class="h5 pt-1" id="current_waiter_spot"></h5>
+								  <h5 class="h5 pt-1" id="out_of">of</h5>
+								  <h5 class="h5 pt-1" id="all_waiter_spots"></h5>
+
+								  <label class="cform-label" for="rf-email" id="email_address_text"> Email address </label>
+								  <input class="cform-control" type="email" id="waitlist_email" placeholder="Your email" >
+								  <button class="btn btn-primary btn-block" type="button" id="demo_submit_button" onclick="submit_email_to_waitlist()" > Try the demo </button>
+
+								  <p class="font-size-ms text-muted" id="referral_link_url"></p>
+								  <button class="btn btn-primary btn-block" type="button" id="demo_referral" > Copy referral link </button>
+
+								  <p class="font-size-ms text-muted" id="filler"></p>
+								  <p class="font-size-ms text-muted" id="info_ref_link"></p>
+								  <p class="font-size-ms text-muted" id="error_message"></p>
+
+								</div>
+								<script
+									src="https://unpkg.com/waitlistapi/dist/widget.js"
+									id="Waitlist-API-Script"
+									data-config="{'name': 'w1',
+										      'api_key': '{J2PIKE}',
+								                      'waitlist_link': '{YOUR WAITLIST LINK}',
+										      'config': {'targetElementId': 'root'},
+
+										      'joinWaitlistHeading': 'Get early access',
+										      'checkStatusHeading': 'Check your status',
+										      'joinWaitlistButton': 'Join waitlist',
+										      'checkStatusButton': 'Check status',
+										      'switchToCheckStatusLabel': 'Signed up before?',
+										      'switchToCheckStatusLink': 'Check your status',
+										      'switchToJoinWaitlistLabel': 'Not signed up?',
+										      'switchToJoinWaitlistLink': 'Join waitlist'
+										      }">
+								</script>
 							</article>
 
 						<!-- Work -->
@@ -364,6 +400,73 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<div id="bg"></div>
 
 		<!-- Scripts -->
+			<script>
+			function post(api_url, data, success_callback, fail_callback) {
+
+$.ajax({
+    method: 'POST',
+    url: api_url,
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function(response) {
+        success_callback(response);
+    },
+    error: function(response) {
+        fail_callback(response);
+    }
+});
+}
+
+function submit_email_to_waitlist(){
+    // fetch values from the frontend
+    var new_signup = document.getElementById('waitlist_email').value; //fetch user signing up on frontend
+    var current_url = document.URL; //fetch current URL, including potential referral token
+
+    const success_callback = function(response) {
+        // fetching responses
+        waiter_email = response['registered_email']
+        waiter_priority = response['current_priority']
+        total_waiters_currently = response['total_waiters_currently']
+        referral_link = response['referral_link']
+
+        // hiding parts of HTML
+        $('#waitlist_email').hide()
+        $('#demo_submit_button').hide()
+        $('#email_address_text').hide()
+
+        // showing parts of HTML
+        $('#current_text').show()
+        $('#current_waiter_spot').show()
+        $('#out_of').show()
+        $('#all_waiter_spots').show()
+        $('#demo_referral').show()
+
+        // appending HTML information
+        $('#current_waiter_spot').html(waiter_priority)
+        $('#all_waiter_spots').html(total_waiters_currently)
+        $('#referral_link_url').html('Your referral link is:' + referral_link)
+        $('#info_ref_link').html('Click on the button to copy your referral link (also sent to your email).')
+    };
+
+    const fail_callback = function(response) {
+
+        // perform actions based on error codes
+        response_code = response['status']
+        if (response_code == 422) {
+            $('#error_message').html("Invalid value to sign up with.");
+        } else if (response_code == 400) {
+            $('#error_message').html("Error!");
+        }
+    };
+
+    post('https://www.getwaitlist.com/waitlist',
+        {email: new_signup,
+            api_key: 'J2PIKE',
+            referral_link: current_url
+        }, success_callback, fail_callback);
+};
+			</script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
