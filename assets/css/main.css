@@ -37,6 +37,10 @@ ol, ul {
 	list-style: none;
 }
 
+header {
+	margin-top: -80px;
+}
+
 blockquote, q {
 	quotes: none;
 }
@@ -94,8 +98,12 @@ input, select, textarea {
 		box-sizing: inherit;
 	}
 
+.fa{
+	color: #c3c35e;
+}
+
 	body {
-		background: #1b1f22;
+		background: #394d36;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -174,12 +182,20 @@ input, select, textarea {
 		margin: 0 0 2rem 0;
 	}
 
-	h1, h2, h3, h4, h5, h6 {
+	h1, h3, h4, h5, h6 {
 		color: #ffffff;
 		font-weight: 600;
 		line-height: 1.5;
 		margin: 0 0 1rem 0;
 		text-transform: uppercase;
+		letter-spacing: 0.2rem;
+	}
+
+	h2 {
+		color: #ffffff;
+		font-weight: 600;
+		line-height: 1.5;
+		margin: 0 0 1rem 0;
 		letter-spacing: 0.2rem;
 	}
 
@@ -199,13 +215,14 @@ input, select, textarea {
 		}
 
 	h1 {
-		font-family: 'Gelasio', serif;
+		font-family: 'Cinzel', serif;
 		font-size: 2.75rem;
 		line-height: 1.3;
 		letter-spacing: 0.5rem;
 	}
 
 	h2 {
+		font-family: 'Crimson Text', serif;
 		font-size: 1.5rem;
 		line-height: 1.4;
 		letter-spacing: 0.5rem;
