@@ -103,6 +103,7 @@ input, select, textarea {
 }
 
 	body {
+		overflow-y:scroll;
 		/* background-image: url("./../../images/back.jpg"); */
 		background: url("./../../images/back.jpg");
 		background-repeat: no-repeat;
