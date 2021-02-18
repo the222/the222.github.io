@@ -945,7 +945,7 @@ input, select, textarea {
 				height: 2.25rem;
 				line-height: 2.25rem;
 				text-align: center;
-				width: 2.25rem;
+				width: 0rem;
 			}
 
 				ul.icons li a:hover {
