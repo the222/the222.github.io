@@ -103,7 +103,12 @@ input, select, textarea {
 }
 
 	body {
-		background: #394d36;
+		/* background-image: url("./../../images/back.jpg"); */
+		background: url("./../../images/back.jpg");
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+  	background-position: center;
+		background-size: cover;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
