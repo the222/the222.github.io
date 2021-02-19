@@ -37,9 +37,9 @@ ol, ul {
 	list-style: none;
 }
 
-header {
+/* header {
 	margin-top: -80px;
-}
+} */
 
 blockquote, q {
 	quotes: none;
@@ -102,15 +102,36 @@ input, select, textarea {
 	color: #a7932d;
 }
 
-	body {
-		overflow-y:scroll;
+@media screen and (max-width: 480px)
+#header {
+    padding-bottom: 0rem;
+    padding-top: 6rem;
+}
+
+@media screen and (max-width: 480px)
+img {
+	width = 80px;
+}
+
+html {
+	height: 100%;
+	margin: 0px;
+	background: url("./../../images/back.jpg") no-repeat center center fixed;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	overflow-y: scroll;
+}
+
+	/* body { */
 		/* background-image: url("./../../images/back.jpg"); */
-		background: url("./../../images/back.jpg");
+		/* background: url("./../../images/back.jpg");
 		background-repeat: no-repeat;
 		background-attachment: fixed;
   	background-position: center;
 		background-size: cover;
-	}
+	} */
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 			-moz-animation: none !important;
